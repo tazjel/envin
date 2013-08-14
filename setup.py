@@ -1,8 +1,17 @@
+#!/usr/bin/env python
+
+PROJECTNAME = 'envin'
+
+VERSION = '0.1.0'
+
+import distribute_setup
+distribute_setup.use_setuptools()
+
 from distutils.core import setup
 
 setup(
-    name='envin',
-    version='0.1.0',
+    name=PROJECTNAME,
+    version=VERSION,
     author='Taras Melnychuk',
     author_email='melnychuktaras@gmail.com',
     #packages=['towelstuff', 'towelstuff.test'],
