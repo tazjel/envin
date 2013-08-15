@@ -7,7 +7,7 @@ VERSION = '0.1.0'
 import distribute_setup
 distribute_setup.use_setuptools()
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name=PROJECTNAME,
@@ -20,8 +20,29 @@ setup(
     #license='LICENSE.txt',
     description='Environmen installer tool.',
     long_description=open('README.txt').read(),
-    #install_requires=[
-    #    "Django >= 1.1.1",
-    #    "caldav == 0.1.4",
-    #],
+
+    classifiers=['Development Status :: 3 - Alpha',
+                 'License :: OSI Approved :: Apache Software License',
+                 'Programming Language :: Python',
+                 'Programming Language :: Python :: 2',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3',
+                 'Programming Language :: Python :: 3.2',
+                 'Intended Audience :: Developers',
+                 'Environment :: Console',
+                 ],
+
+    platforms=['Any'],
+
+    scripts=[],
+
+    provides=[],
+    install_requires=['distribute', 'cliff'],
+
+    namespace_packages=[],
+    packages=find_packages(),
+    include_package_data=True,
+
+    entry_points={'console_scripts': ['envin = envin.envin:main']},
+
 )
