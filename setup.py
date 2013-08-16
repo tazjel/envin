@@ -4,8 +4,17 @@ PROJECTNAME = 'envin'
 
 VERSION = '0.1.0'
 
+import os, sys
 import distribute_setup
 distribute_setup.use_setuptools()
+
+#TODO: investigate why we have to call it again.
+distribute_setup.use_setuptools()
+
+# install console scripts into home bin directory if it exists.
+home_bin = os.path.expanduser('~/bin')
+if os.path.exists(home_bin):
+    sys.argv.append('--install-scripts=%s' % home_bin)
 
 from setuptools import setup, find_packages
 
