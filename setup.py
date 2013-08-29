@@ -4,7 +4,8 @@ PROJECTNAME = 'envin'
 
 VERSION = '0.1.0'
 
-import os, sys
+import os
+import sys
 import distribute_setup
 distribute_setup.use_setuptools()
 
@@ -52,6 +53,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
 
-    entry_points={'console_scripts': ['envin = envin.envin:main']},
-
+    entry_points={
+        'console_scripts': ['envin = envin.envin:main'],
+        'envin.tools': ['python = envin.python.pyinstaller:PyInstall']},
 )
