@@ -38,45 +38,65 @@ class PyInstall(Command):
             ' '.join(package_collection)), shell=True)
 
     def take_action(self, parsed_args):
+        #TODO: sort python list.
+        #      perhaps we should implement more flexible way.
+        greeting = ("You are going to install python. Please select "
+                    "which python distribution you want to install:\n"
+                    "{} Please enter order nubmers of desired python "
+                    "separated ','.\nFor expampel '1, 2, 4'. If you want to "
+                    "install all pythons simply enter '*'\n"
+                   ).format(''.join(['{0}. {1}\n'.format(i+1, k)
+                               for i, k in enumerate(self.pythons.keys())]))
+
+        self.app.stdout.write(greeting)
+        user_input = raw_input("Enter python order number:")
+
+        #TODO: implement parsing of user input.
+        self.app.stdout.write('Your input: {0}'.format(user_input))
+
+        #TODO: implement installation path configuration.
+        #      separate for each python ?
+
+
         #self.log.info('sending greeting')
         #self.log.debug('debugging')
         #self.app.stdout.write('hi!\n')
 
         # install requirements
-        self.install_requires()
+        #self.install_requires()
         # set python compilation flags
-        unset = []
+        #unset = []
 
-        for flag, value in SYSC_FLAGS.items():
-            subprocess.call('export %s=%s' % (flag, value), shell=True)
-            unset.append(flag)
+        #for flag, value in SYSC_FLAGS.items():
+        #    subprocess.call('export %s=%s' % (flag, value), shell=True)
+        #    unset.append(flag)
 
-        home = os.getcwd()
-        for p, url in self.pythons.items():
-            os.chdir(tempfile.gettempdir())
-            source_file = url.split('/')[-1]
-            urllib.urlretrieve(url, source_file)
-            unpack_archive(source_file, '.')
-            source_dir = os.path.splitext(source_file)[0]
+        #home = os.getcwd()
+        #for p, url in self.pythons.items():
+        #    os.chdir(tempfile.gettempdir())
+        #    source_file = url.split('/')[-1]
+        #    urllib.urlretrieve(url, source_file)
+        #    unpack_archive(source_file, '.')
+        #    source_dir = os.path.splitext(source_file)[0]
 
-            if os.path.exists(source_dir):
-                os.chdir(source_dir)
-                version = p.split('-')[1]
-                if version in os.listdir(PATCHES_DIR):
-                    pdir = '%s/%s' % (PATCHES_DIR, version)
-                    for patch in os.listdir(pdir):
-                        subprocess.call('patch -p0 < %s/%s' % (pdir, patch),
-                                        shell=True)
+        #    if os.path.exists(source_dir):
+        #        os.chdir(source_dir)
+        #        version = p.split('-')[1]
+        #        if version in os.listdir(PATCHES_DIR):
+        #            pdir = '%s/%s' % (PATCHES_DIR, version)
+        #            for patch in os.listdir(pdir):
+        #                subprocess.call('patch -p0 < %s/%s' % (pdir, patch),
+        #                                shell=True)
 
-            python_home = '%s/%s' % (home, p)
-            os.makedirs(python_home)
-            pyinst_cmd = \
-                './configure --prefix=%s; make; make install' % python_home
-            subprocess.call(pyinst_cmd, shell=True)
-            os.chdir(tempfile.gettempdir())
+        #    python_home = '%s/%s' % (home, p)
+        #    os.makedirs(python_home)
+        #    pyinst_cmd = \
+        #        './configure --prefix=%s; make; make install' % python_home
+        #    subprocess.call(pyinst_cmd, shell=True)
+        #    os.chdir(tempfile.gettempdir())
 
-        for flag in unset:
-            subprocess.call('unset %s' % flag, shell=True)
+        #for flag in unset:
+        #    subprocess.call('unset %s' % flag, shell=True)
 
         # installing setuptools
         #if 'distribute_setup.py' not in os.listdir(tempfile.gettempdir()):
