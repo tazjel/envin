@@ -1,0 +1,18 @@
+SOURCE = 'ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2'
+INSTALL_COMMAND = 'sudo apt-get --assume-yes install'
+CONFIG_CMD = ('./configure'
+              ' --enable-perlinterp'
+              ' --enable-python3interp'
+              ' --with-python-config-dir={pconfig_path}'
+              ' vi_cv_path_python3={vi_cv_path_python3}'
+              ' --enable-gpm'
+              ' --enable-acl'
+              ' --enable-cscope'
+              ' --disable-selinux'
+              ' --enable-rubyinterp'
+              ' --enable-cscope'
+              ' --with-features=huge'
+              ' --prefix={home}')
+
+'/home/melta/work/python/python-3.3.2/lib/python3.3/config-3.3m'
+'/home/melta/work/python/python-3.3.2/bin/python3.3'
