@@ -22,11 +22,11 @@ class VimInstall(Command):
         self.package_collection = []
         with open(self.requirements, 'r') as packages:
             package_collection = \
-                    [package.strip() for package in packages.readlines()]
+                [package.strip() for package in packages.readlines()]
 
         self.log.info('Install packages.')
         subprocess.call('%s %s' % (INSTALL_COMMAND,
-            ' '.join(package_collection)), shell=True)
+                                   ' '.join(package_collection)), shell=True)
 
     def is_python_3(self, python_path):
         """ Checks if specified python path is python 3 or not.
@@ -39,32 +39,31 @@ class VimInstall(Command):
         cmd = "{} -c 'import sys; print(sys.version)'".format(python_path)
 
         try:
-             out = subprocess.check_output(cmd, stderr=subprocess.STDOUT,
-                                           shell=True)
+            out = subprocess.check_output(cmd, stderr=subprocess.STDOUT,
+                                          shell=True)
         except subprocess.CalledProcessError:
             raise ValueError("Bad python path specified!")
 
         match = re.match(b'^(\d)\.', out)
         if match:
-            if match.group(0) == '3':
+            if match.group(1).decode('utf-8') == '3':
                 return True
             else:
                 return False
 
         raise ValueError("Bad python path specified!")
 
-
     def take_action(self, parsed_args):
 
         self.app.stdout.write('Please specify where you want to install vim\n')
-        vim_home = input('>')
+        vim_home = input('Vim home: ')
 
         self.app.stdout.write('Please specify python path for vim\n')
-        python_binary_path= input('>')
+        python_binary_path = input('Python binary path: ')
         self.is_python_3(python_binary_path)
 
         self.app.stdout.write('Please specify python config dir path\n')
-        python_config_dir = input('>')
+        python_config_dir = input('Python config dir: ')
 
         self.install_requires()
         os.chdir(tempfile.gettempdir())
@@ -76,11 +75,14 @@ class VimInstall(Command):
         if not os.path.exists(vim_home):
             os.makedirs(vim_home)
 
-        conf_cmd = CONFIG_CMD.format(home=vim_home,
-                                     vi_cv_path_python3=python_binary_path,
+        if self.is_python_3(python_binary_path):
+            pversion = 'python3'
+        else:
+            pversion = 'python'
+
+        conf_cmd = CONFIG_CMD.format(home=vim_home, pversion=pversion,
+                                     vi_cv_path_python=python_binary_path,
                                      pconfig_path=python_config_dir)
+
         make_install = 'make; make install'
         subprocess.call('%s %s' % (conf_cmd, make_install), shell=True)
-
-
-
