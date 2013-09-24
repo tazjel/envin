@@ -13,6 +13,3 @@ CONFIG_CMD = ('./configure'
               ' --enable-cscope'
               ' --with-features=huge'
               ' --prefix={home}')
-
-'/home/melta/work/python/python-3.3.2/lib/python3.3/config-3.3m'
-'/home/melta/work/python/python-3.3.2/bin/python3.3'
