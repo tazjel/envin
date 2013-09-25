@@ -8,7 +8,6 @@ import subprocess
 from setuptools.archive_util import unpack_archive
 #from setuptools.command.easy_install import chmod
 
-from cliff.command import Command
 
 from envin.python.config import PYTHONS
 from envin.python.config import SYSC_FLAGS
@@ -17,42 +16,48 @@ from envin.python.config import PATCHES_DIR
 from envin.python.config import INSTALL_COMMAND
 #from envin.python.config import ACTIVATE_SCRIPT_SOURCE
 
+from envin.base.base import BaseCommand
 
-class PyInstall(Command):
+
+class PyInstall(BaseCommand):
     """ Command that installs python. """
 
     pythons = PYTHONS
     log = logging.getLogger(__name__)
 
-    requirements = os.path.join(os.path.dirname(__file__),
-                                'requirements.txt')
-
     def install_requires(self):
-        self.package_collection = []
-        with open(self.requirements, 'r') as packages:
-            package_collection = \
-                    [package.strip() for package in packages.readlines()]
+        """ Install required packages for pythons compilation. """
 
-        self.log.info('Install packages.')
-        subprocess.call('%s %s' % (INSTALL_COMMAND,
-            ' '.join(package_collection)), shell=True)
+        requirements = os.path.join(os.path.dirname(__file__),
+                                    'requirements.txt')
+        self.install_requires(packages=requirements)
 
     def take_action(self, parsed_args):
-        #TODO: sort python list.
-        #      perhaps we should implement more flexible way.
         greeting = ("You are going to install python. Please select "
                     "which python distribution you want to install:\n"
-                    "{} Please enter order nubmers of desired python "
+                    "{0}\nPlease enter order nubmers of desired python "
                     "separated ','.\nFor expampel '1, 2, 4'. If you want to "
-                    "install all pythons simply enter '*'\n"
-                   ).format(''.join(['{0}. {1}\n'.format(i+1, k)
-                               for i, k in enumerate(self.pythons.keys())]))
+                    "install all pythons simply enter '*'\n")
+
+        pythons = enumerate(self.pythons)
+        greeting = greeting.format(''.join(['{0}. {1}\n'.format(i+1, p[0])
+                                           for i, p in pythons]))
 
         self.app.stdout.write(greeting)
-        user_input = raw_input("Enter python order number:")
+        pythons_to_install = raw_input("Enter python order numbers:")
 
         #TODO: implement parsing of user input.
-        self.app.stdout.write('Your input: {0}'.format(user_input))
+        for num in pythons_to_install.split(','):
+            try:
+                idx = int(num)
+            except ValueError:
+                #TODO:do appropriate action.
+                pass
+
+            if idx in [p[0] for p in pythons]:
+                # to be continued
+
+
 
         #TODO: implement installation path configuration.
         #      separate for each python ?
