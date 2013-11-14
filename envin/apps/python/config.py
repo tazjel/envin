@@ -1,15 +1,17 @@
 import os
 
-PYTHONS = (
-    ('python-3.3.2', 'http://python.org/ftp/python/3.3.2/Python-3.3.2.tgz'),
-    ('python-2.7.5', 'http://python.org/ftp/python/2.7.5/Python-2.7.5.tgz'),
-    ('python-2.6.8', 'http://python.org/ftp/python/2.6.8/Python-2.6.8.tgz'),
-    ('python-2.4.6', 'http://python.org/ftp/python/2.4.6/Python-2.4.6.tgz'),)
+PYTHONS = {'3.3': ('python-3.3.2',
+                   'http://python.org/ftp/python/3.3.2/Python-3.3.2.tgz'),
+           '2.7': ('python-2.7.6',
+                   'http://python.org/ftp/python/2.7.5/Python-2.7.6.tgz'),
+           '2.6': ('python-2.6.9',
+                   'http://python.org/ftp/python/2.6.9/Python-2.6.9.tgz'),
+           '2.4': ('python-2.4.6',
+                   'http://python.org/ftp/python/2.4.6/Python-2.4.6.tgz')}
 
 SETUP_URL = 'http://python-distribute.org/distribute_setup.py'
 PATCHES_DIR = '%s/patches' % os.path.dirname(__file__)
 
-#INSTALL_COMMAND = 'sudo apt-get --assume-yes install'
 SYSC_FLAGS = {'arch':'$(dpkg-architecture -qDEB_HOST_MULTIARCH)',
               'LDFLAGS':'"-L/usr/lib/$arch -L/lib/$arch"',
               'CFLAGS':'"-I/usr/include/$arch"',

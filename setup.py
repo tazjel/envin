@@ -55,6 +55,8 @@ setup(
 
     entry_points={
         'console_scripts': ['envin = envin.envin:main'],
-        'envin.tools': ['python = envin.python.pyinstaller:PyInstall',
-                        'vim = envin.vim.viminstaller:VimInstall']},
+        'envin.commands': ['install = envin.install:Install'],
+        'envin.apps': ['python = envin.apps.python:Python',
+                      'vim = envin.apps.vim:Vim'],
+    },
 )
