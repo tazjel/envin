@@ -1,11 +1,7 @@
 import os
 import re
-import tempfile
 import logging
 import subprocess
-import urllib.request
-
-from setuptools.archive_util import unpack_archive
 
 from . import config
 from ..installer import AppInstaller
@@ -97,11 +93,9 @@ class Vim(AppInstaller):
             python_config_dir = self.get_python_config_dir(app)
 
         self.install_requires()
-        os.chdir(tempfile.gettempdir())
-        source_file = config.SOURCE.split('/')[-1]
-        urllib.request.urlretrieve(config.SOURCE, source_file)
-        unpack_archive(source_file, '.')
-        os.chdir(config.VIM_DIR)
+        source_dir = self.download_src(config.SOURCE,
+                                       source=config.VIM_DIR)
+        os.chdir(source_dir)
 
         if not os.path.exists(vim_home):
             os.makedirs(vim_home)

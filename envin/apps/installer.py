@@ -1,7 +1,12 @@
 import os
 import sys
+import tempfile
 import readline
 import subprocess
+import urllib.request
+
+##TODO: perhaps we should import it form distribute.
+from setuptools.archive_util import unpack_archive
 
 
 class AppInstaller(object):
@@ -116,6 +121,35 @@ class AppInstaller(object):
                 break
 
         return user_input
+
+    def download_src(self, url, source=None, archive=True):
+        """ Download source and return path to it.
+
+        :param url: url to source distribution
+        :type url: string
+
+        :param source_dir: source directory after unpacking (optional)
+        :type source_dir: string
+
+        :param archive: is source archive file or not
+        :type archive: boolean
+
+        :return: path to source directory
+        """
+        tmp_dir = tempfile.gettempdir()
+        source_file = os.path.join(tmp_dir, url.split('/')[-1])
+        urllib.request.urlretrieve(url, source_file)
+
+        if source is None:
+            source = source_file
+
+        if archive:
+            unpack_archive(source_file, tmp_dir)
+            source = os.path.splitext(source)[0]
+            if 'tar' in source:
+                source = os.path.splitext(source)[0]
+
+        return os.path.join(tmp_dir, source)
 
     def run(self, argv):
         raise NotImplementedError
