@@ -33,6 +33,11 @@ class Postfix(AppInstaller):
 
         username, passwd = self.get_gmail_creds()
         if username and passwd:
+            saslauth_cmd = 'sudo sh -c "echo {} > {}"'.format(config.SASLAUTHD,
+                config.SASLAUTHD_FILE)
+            subprocess.call(saslauth_cmd, shell=True)
+            subprocess.call(config.SASLAUTHD_OVERRIDE_CMD, shell=True)
+
             cmd = 'sudo sh -c "echo {} > {}"'.format(
                 config.GMAIL_SMTP_CREDS.format(config.GMAIL_SMTP, username,
                                                passwd),
