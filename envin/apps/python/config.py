@@ -7,7 +7,7 @@ PYTHONS = {'3.2': ('python-3.3.2',
            '2.4': ('python-2.4.6',
                    'http://python.org/ftp/python/2.4.6/Python-2.4.6.tgz')}
 
-SETUP_URL = 'http://python-distribute.org/distribute_setup.py'
+STOOLS_URL = 'https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py'
 PIP_SOURCES = {
     '2.4': 'https://pypi.python.org/packages/source/p/pip/pip-1.1.tar.gz',
     '2.6': 'https://pypi.python.org/packages/source/p/pip/pip-1.4.1.tar.gz',

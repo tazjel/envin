@@ -15,6 +15,19 @@ class AppInstaller(object):
     requirements = 'requirements.txt'
     install_command = 'sudo apt-get --assume-yes install'
 
+    def __init__(self, app, args):
+        """ Application installer initializer.
+
+        :param app: envin application object
+        :type app: object
+
+        :param args: arguments list passed in command line
+        :type args: list
+        """
+
+        self.app = app
+        self.args = args
+
     def _file_path(self, file_name):
         """ Build absolute path to specified filename.
 
@@ -42,6 +55,8 @@ class AppInstaller(object):
             subprocess.call(cmd, shell=True)
 
     def install_requires(self):
+        """ Install requirements. """
+
         self.log.info('Installing requirements...')
         self.install_packages(packages=self.requirements)
 
@@ -52,6 +67,7 @@ class AppInstaller(object):
         :type root: string
         :returns: list of contained dirs
         """
+
         res = []
         for name in os.listdir(root):
             path = os.path.join(root, name)
@@ -97,11 +113,8 @@ class AppInstaller(object):
         readline.parse_and_bind("tab: complete")
         readline.set_completer(self.complete)
 
-    def _prompt_user(self, app, message, prompt_message, allow_empty=False):
+    def _prompt_user(self, message, prompt_message, allow_empty=False):
         """ Ask user for input.
-
-        :param app: envin application object
-        :type app: object
 
         :param message: user message
         :type message: string
@@ -115,7 +128,7 @@ class AppInstaller(object):
 
         user_input = None
         while not user_input:
-            app.stdout.write(message)
+            self.app.stdout.write(message)
             user_input = input(prompt_message)
             if allow_empty:
                 break
@@ -136,6 +149,7 @@ class AppInstaller(object):
 
         :return: path to source directory
         """
+
         tmp_dir = tempfile.gettempdir()
         source_file = os.path.join(tmp_dir, url.split('/')[-1])
         urllib.request.urlretrieve(url, source_file)
@@ -151,5 +165,7 @@ class AppInstaller(object):
 
         return os.path.join(tmp_dir, source)
 
-    def run(self, argv):
+    def run(self):
+        """ Main entry poing for app installer. """
+
         raise NotImplementedError

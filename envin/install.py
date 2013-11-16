@@ -16,8 +16,8 @@ class Install(Command):
         if parsed_args.app:
             app = self.app.app_cmd_manager.find_command(parsed_args.app)
             app_factory, app_name, search_args = app
-            app_installer = app_factory()
-            app_installer.run(self.app, search_args)
+            app_installer = app_factory(self.app, search_args)
+            app_installer.run()
             return 0
         else:
             cmd_parser = self.get_parser(' '.join([self.app.NAME, 'install']))

@@ -37,60 +37,45 @@ class Vim(AppInstaller):
 
         raise ValueError("Bad python path specified!")
 
-    def get_vim_home(self, app):
-        """ Ask user to provide installation directory.
+    def get_vim_home(self):
+        """ Ask user to provide installation directory. """
 
-        :param app: envin application object
-        :type app: object
-        """
         msg = 'Please specify where you want to install vim\n'
         prompt_msg = 'Installation directory: '
-        return self._prompt_user(app, msg, prompt_msg)
+        return self._prompt_user(msg, prompt_msg)
 
-    def get_python_binary_path(self, app):
-        """ Ask user to provide python binary path.
+    def get_python_binary_path(self):
+        """ Ask user to provide python binary path. """
 
-        :param app: envin application object
-        :type app: object
-        """
         msg = ("If you want to install vim with python support then please"
                "specify python binary path\n")
         bad_msg = "Bad interpreter path. Please try again."
         prompt_msg = "Python path: "
-        path = self._prompt_user(app, msg, prompt_msg, allow_empty=True)
+        path = self._prompt_user(msg, prompt_msg, allow_empty=True)
         while path and not os.path.exists(path):
-            path = self._prompt_user(app, bad_msg, prompt_msg)
+            path = self._prompt_user(bad_msg, prompt_msg)
         return path
 
-    def get_python_config_dir(self, app):
-        """ Ask user to provide python binary path.
+    def get_python_config_dir(self):
+        """ Ask user to provide python binary path. """
 
-        :param app: envin application object
-        :type app: object
-        """
         msg = """Please specify python config dir path\n"""
         prompt_msg = "Python config dir path: "
         bad_msg = "Bad python configuration directory path. Please try again."
 
-        path = self._prompt_user(app, msg, prompt_msg)
+        path = self._prompt_user(msg, prompt_msg)
         while path and not os.path.exists(path):
-            path = self._prompt_user(app, bad_msg, prompt_msg)
+            path = self._prompt_user(bad_msg, prompt_msg)
         return path
 
-    def run(self, app, args):
-        """ Compile vim editor app.
-
-        :param app: envin application object
-        :type app: object
-        :param args: arguments list passed in command line
-        :type args: list
-        """
+    def run(self):
+        """ Compile vim editor app. """
 
         self.setup_path_complete()
-        vim_home = self.get_vim_home(app)
-        python_binary_path = self.get_python_binary_path(app)
+        vim_home = self.get_vim_home()
+        python_binary_path = self.get_python_binary_path()
         if python_binary_path:
-            python_config_dir = self.get_python_config_dir(app)
+            python_config_dir = self.get_python_config_dir()
 
         self.install_requires()
         source_dir = self.download_src(config.SOURCE,
