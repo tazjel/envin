@@ -57,6 +57,7 @@ setup(
         'console_scripts': ['envin = envin.envin:main'],
         'envin.commands': ['install = envin.install:Install'],
         'envin.apps': ['python = envin.apps.python:Python',
-                      'vim = envin.apps.vim:Vim'],
+                       'vim = envin.apps.vim:Vim',
+                       'postfix = envin.apps.postfix:Postfix'],
     },
 )

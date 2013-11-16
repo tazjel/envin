@@ -164,7 +164,7 @@ class Python(AppInstaller):
         os.chmod(script_name, 0o755)
 
     def run(self):
-        """ Compile vim editor app. """
+        """ Compile python distribution. """
 
         pythons_to_install = self.get_pythons_to_install()
         self.setup_path_complete()
