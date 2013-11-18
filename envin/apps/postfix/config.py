@@ -4,6 +4,7 @@ GMAIL_SMTP_CREDS = '{} {}:{}'
 
 POSTFIX_CONF_LINES = (
     'relayhost={}'.format(GMAIL_SMTP),
+    'inet_interfaces=all',
     'smtp_sasl_auth_enable=yes',
     'smtp_sasl_password_maps=hash:{}'.format(SASL_PASSWD_FILE),
     'smtp_sasl_security_options=',
