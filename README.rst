@@ -1,6 +1,6 @@
-#############################################
-Envin - environment apps installation utility
-#############################################
+#####################################
+Envin - environment installation tool
+#####################################
 
 Jedi is an autocompletion tool for Python that can be used in IDEs/editors.
 Jedi works. Jedi is fast. It understands all of the basic Python syntax
