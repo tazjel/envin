@@ -7,7 +7,7 @@ from ..installer import AppInstaller
 
 
 class Python(AppInstaller):
-    """ Python installer. """
+    """ Python distribution installer. """
 
     log = logging.getLogger(__name__)
     unset = []

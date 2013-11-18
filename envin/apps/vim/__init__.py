@@ -8,7 +8,7 @@ from ..installer import AppInstaller
 
 
 class Vim(AppInstaller):
-    """ Installer for vim editor appl. """
+    """ Installer for vim editor application. """
 
     log = logging.getLogger(__name__)
 

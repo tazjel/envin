@@ -5,11 +5,13 @@ import readline
 import subprocess
 import urllib.request
 
+from cliff.command import Command
+
 ##TODO: perhaps we should import it form distribute.
 from setuptools.archive_util import unpack_archive
 
 
-class AppInstaller(object):
+class AppInstaller(Command):
     """ Base application installer class. """
 
     requirements = 'requirements.txt'
