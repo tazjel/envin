@@ -29,7 +29,7 @@ setup(
     #url='http://pypi.python.org/pypi/TowelStuff/',
     #license='LICENSE.txt',
     description='Environmen installer tool.',
-    long_description=open('README.txt').read(),
+    long_description=open('README.rst').read(),
 
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: Apache Software License',
