@@ -19,3 +19,13 @@ Installation
 ============
 
      python3 setup.py install
+
+Note: by default will be installed in user's home.
+
+
+Usage
+=====
+
+     envin install [app]
+
+app - application installer name. For example: vim
