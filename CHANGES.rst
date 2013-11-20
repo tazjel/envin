@@ -3,13 +3,13 @@
 Changelog
 ---------
 
-0.1 - alpha  November 20, 2013
+0.1-alpha - November 20, 2013
 ==============================
 
- - Alpha release.
-   [melta]
+- Alpha release.
+  [melta]
 
-0.1 -  August 12, 2013
+0.0 - August 12, 2013
 ======================
 
 - Initial development
