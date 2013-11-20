@@ -16,8 +16,8 @@ Installers
 ----------
 
 Application isntaller class is where all installation and configuration
-process happens. This class based on cliff `Command` class and should be
-subclassed. Each subcluss should implement `run` method. It is the main
+process happens. This class based on cliff 'Command' class and should be
+subclassed. Each subcluss should implement 'run' method. It is the main
 app installer method that does all work.
 
 Currnetly Envin supports the following applications:
