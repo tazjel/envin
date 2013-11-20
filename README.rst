@@ -14,13 +14,15 @@ Currnetly Envin supports the following applications:
  - Vim (7.4)
  - Postfix
 
+Tested with Ubuntu 12.04
+
 
 Installation
 ============
 
      python3 setup.py install
 
-Note: by default will be installed in user's home.
+Note: by default package will be installed in user's home.
 
 
 Usage

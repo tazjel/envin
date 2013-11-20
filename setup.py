@@ -1,19 +1,17 @@
 #!/usr/bin/env python
-import distribute_setup
-distribute_setup.use_setuptools()
 
-#TODO: investigate why we have to call it again.
-distribute_setup.use_setuptools()
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    import distribute_setup
+    distribute_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-PROJECTNAME = 'envin'
-
-VERSION = '0.1'
 
 setup(
-    name=PROJECTNAME,
-    version=VERSION,
+    name='envin',
+    version='0.1-alpha',
     author='Taras Melnychuk',
     author_email='melnychuktaras@gmail.com',
     url='http://github.com/melta/envin',
@@ -28,7 +26,6 @@ setup(
                  'Intended Audience :: Developers',
                  'Environment :: Console',
                  ],
-
     platforms=['Ubuntu 12.04'],
     scripts=[],
     provides=[],
